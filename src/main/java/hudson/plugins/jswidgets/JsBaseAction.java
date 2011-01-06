@@ -79,7 +79,7 @@ public abstract class JsBaseAction implements Action {
      * 
      * Make method final, as we always want the same display name.
      */
-    @Override
+    //@Override
     public final String getDisplayName() {
         return JsConsts.DISPLAYNAME;
     }
@@ -89,13 +89,13 @@ public abstract class JsBaseAction implements Action {
      * 
      * Make method final, as we always want the same icon file.
      */
-    @Override
+    //@Override
     public final String getIconFileName() {
         return JsConsts.ICONFILENAME;
     }
 
     /** {@inheritDoc} */
-    @Override
+    //@Override
     public String getUrlName() {
         return JsConsts.URLNAME;
     }
