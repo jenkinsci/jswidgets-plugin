@@ -25,7 +25,7 @@ public class JsProjectActionFactory extends TransientProjectActionFactory {
      * {@inheritDoc}
      */
     @Override
-    public Collection<? extends Action> createFor(@SuppressWarnings("unchecked") AbstractProject target) {
+    public Collection<? extends Action> createFor(@SuppressWarnings("rawtypes") AbstractProject target) {
         LOG.fine(this + " adds JsJobAction for " + target);
         final List<JsJobAction> jsJobActions = target.getActions(JsJobAction.class);
         final ArrayList<Action> actions = new ArrayList<Action>();

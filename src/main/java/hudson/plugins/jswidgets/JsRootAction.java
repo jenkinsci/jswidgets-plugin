@@ -31,6 +31,7 @@ public class JsRootAction extends JsBaseAction implements RootAction {
      * @param request evalutes parameter <tt>count</tt>
      * @return runlist
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public RunList getRunList(StaplerRequest request) {
         final RunList allRuns = new RunList(Hudson.getInstance().getPrimaryView());
         final String countParameter = request.getParameter("count");

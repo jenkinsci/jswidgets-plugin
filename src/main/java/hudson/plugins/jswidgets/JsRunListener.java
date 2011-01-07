@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * 
  * @author mfriedenhagen
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes")
 @Extension
 public final class JsRunListener extends RunListener<AbstractBuild> {
 
