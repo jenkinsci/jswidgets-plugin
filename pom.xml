@@ -16,6 +16,10 @@
     <name>Jenkins Javascript Widgets Plugin</name>
     <description>Allows embedding various statistics available from Jenkins in your via javascript-snippets ala ohloh.net</description>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/JSWidgets+Plugin</url>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://issues.jenkins-ci.org/browse/JENKINS/component/15639</url>
+    </issueManagement>
     <developers>
         <developer>
             <id>mfriedenhagen</id>
