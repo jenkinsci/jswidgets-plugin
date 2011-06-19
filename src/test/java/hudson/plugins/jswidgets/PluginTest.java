@@ -68,7 +68,7 @@ public class PluginTest extends HudsonTestCase {
      */
     @LocalData
     public void testJsHealthWithoutBuilds() throws IOException, SAXException {
-        final String greyIcon = "16x16/grey.gif";
+        final String greyIcon = "16x16/grey.png";
         final String relative = "/job/foo/" + JsConsts.URLNAME + "/health/";
         final String jobDescription = "Just a small instance for testing";
         checkJavaScriptOutput(greyIcon, relative);
@@ -79,7 +79,7 @@ public class PluginTest extends HudsonTestCase {
 
     @LocalData
     public void testJsHealthWithBuilds() throws IOException, SAXException {
-        final String blueIcon = "16x16/blue.gif";
+        final String blueIcon = "16x16/blue.png";
         final String relative = "/job/bar/" + JsConsts.URLNAME + "/health/";
         checkJavaScriptOutput(blueIcon, relative);
         checkHtmlOutput(blueIcon, relative);
@@ -88,7 +88,7 @@ public class PluginTest extends HudsonTestCase {
 
     @LocalData
     public void testJsHealthWithoutDescription() throws IOException, SAXException {
-        final String blueIcon = "16x16/blue.gif";
+        final String blueIcon = "16x16/blue.png";
         final String relative = "/job/bar/" + JsConsts.URLNAME + "/health/";
         final String htmlNeedle = "job with \\'3\\' builds";
         checkJavaScriptOutput(htmlNeedle, relative);
