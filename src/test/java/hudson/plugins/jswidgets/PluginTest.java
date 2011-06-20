@@ -177,7 +177,7 @@ public class PluginTest extends HudsonTestCase {
         final String buildPath = "job/svntest/2";
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
-        final String nodeName = "master Hudson node";
+        final String nodeName = "master Jenkins node";
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }
 
@@ -186,9 +186,8 @@ public class PluginTest extends HudsonTestCase {
         final String buildPath = "job/bar/4";
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
-        final String nodeName = "master Hudson node";
+        final String nodeName = "master Jenkins node";
         webClient.goTo("job/bar/build");
-        // Sleep 3 seconds to account for fast machines as the build might not be finished during test phase.
         Thread.sleep(TimeUnit.MILLISECONDS.convert(5, TimeUnit.SECONDS));
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }
