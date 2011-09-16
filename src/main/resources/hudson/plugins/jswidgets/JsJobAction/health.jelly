@@ -13,7 +13,7 @@
 document.write('</j:if>
 <style type="text/css">div.healthReportDetails { align: center; background-color: #ffe; border: 1px solid #bbb; z-index: 26; width: 450px;}; div.healthReportDetails table { width: 100%; border-collapse: collapse;};</style>
         <div class="healthReportDetails" title="${job.lastBuild.timestampString}">
-            <div align="center"><big>${%Hudson Health Report}</big><br/></div>            
+            <div align="center"><big>${%Jenkins Health Report}</big><br/></div>
             <table border="0">
                 <thead>
                     <tr>

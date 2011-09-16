@@ -10,7 +10,7 @@
     ${response.setContentType("text/javascript; charset=UTF-8")}
     document.write('</j:if>
     <div style="background-color: #ffe; border: 1px solid #bbb; width: 450px;">
-    <div align="center"><b>${%Hudson Build History for} <a href="${baseURL}">${baseURL}</a></b></div>
+    <div align="center"><b>${%Jenkins Build History for} <a href="${baseURL}">${baseURL}</a></b></div>
     <table width="100%">
     <j:forEach var="run" items="${runList}">
         <tr>
