@@ -53,13 +53,13 @@
         <dependency>
             <groupId>org.kohsuke.stapler</groupId>
             <artifactId>stapler</artifactId>
-            <version>1.164</version>
+            <version>1.172</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.kohsuke.stapler</groupId>
             <artifactId>stapler-jelly</artifactId>
-            <version>1.164</version>
+            <version>1.172</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
