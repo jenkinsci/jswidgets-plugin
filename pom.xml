@@ -16,6 +16,10 @@
         <system>JIRA</system>
         <url>http://issues.jenkins-ci.org/browse/JENKINS/component/15639</url>
     </issueManagement>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://huschteguzzel.de/hudson/job/jenkinsci-jswidgets-plugin/</url>
+    </ciManagement>
     <developers>
         <developer>
             <id>mfriedenhagen</id>
