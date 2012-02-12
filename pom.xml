@@ -57,13 +57,19 @@
         <dependency>
             <groupId>org.kohsuke.stapler</groupId>
             <artifactId>stapler</artifactId>
-            <version>1.172</version>
+            <version>${org.kohsuke.stapler.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.kohsuke.stapler</groupId>
             <artifactId>stapler-jelly</artifactId>
-            <version>1.172</version>
+            <version>${org.kohsuke.stapler.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.kohsuke.stapler</groupId>
+            <artifactId>stapler-groovy</artifactId>
+            <version>${org.kohsuke.stapler.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -96,6 +102,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>${maven-surefire-plugin.version}</maven-surefire-report-plugin.version>
+        <org.kohsuke.stapler.version>1.172</org.kohsuke.stapler.version>
     </properties>
     <build>
         <plugins>
