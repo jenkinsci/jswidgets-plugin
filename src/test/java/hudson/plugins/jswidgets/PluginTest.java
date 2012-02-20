@@ -134,12 +134,12 @@ public class PluginTest extends HudsonTestCase {
     @LocalData
     public void testJsJobIndexAction() throws IOException, SAXException {
         webClient.setJavaScriptEnabled(false); // TODO webClient chokes on the jshealth javascript right now
-        checkSubJelly("job/foo", "health");
+        checkSubJelly("/job/foo", "health");
     }
 
     @LocalData
     public void testJsBuildActionWithChanges() throws IOException, SAXException {
-        final String buildPath = "job/svntest/4";
+        final String buildPath = "/job/svntest/4";
         final String changesJelly = "changes";
         final String changeLogNeedle = "Now with more text";
         // Built on removed slave.
@@ -174,7 +174,7 @@ public class PluginTest extends HudsonTestCase {
 
     @LocalData
     public void testJsBuildActionWithOutChanges() throws IOException, SAXException {
-        final String buildPath = "job/svntest/2";
+        final String buildPath = "/job/svntest/2";
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
         final String nodeName = "master Jenkins node";
@@ -183,7 +183,7 @@ public class PluginTest extends HudsonTestCase {
 
     @LocalData
     public void testJsRunListener() throws IOException, SAXException, InterruptedException {
-        final String buildPath = "job/bar/4";
+        final String buildPath = "/job/bar/4";
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
         final String nodeName = "master Jenkins node";
