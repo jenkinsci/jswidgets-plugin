@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.424.5</version><!-- which version of Hudson is this plugin built against? -->
+        <version>1.424.6</version><!-- which version of Hudson is this plugin built against? -->
     </parent>
 
     <artifactId>jswidgets</artifactId>
@@ -61,18 +61,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.kohsuke.stapler</groupId>
-            <artifactId>stapler-jelly</artifactId>
-            <version>${org.kohsuke.stapler.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.kohsuke.stapler</groupId>
-            <artifactId>stapler-groovy</artifactId>
-            <version>${org.kohsuke.stapler.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jenkins-ci</groupId>
             <artifactId>htmlunit</artifactId>
             <version>2.6-jenkins-6</version>
@@ -96,10 +84,22 @@
             <version>1.0</version>
             <scope>test</scope>
         </dependency>
+        <!--
+            stapler-1.172 depends on r06, which is missing symbol
+            com.google.common.collect.ImmutableList.copyOf(Ljava/util/Collection;)
+            new version 10.0.1 with this symbol is provided in jenkins-1.424.6
+        -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>10.0.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <properties>
         <!-- compare: http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>${maven-surefire-plugin.version}</maven-surefire-report-plugin.version>
         <org.kohsuke.stapler.version>1.172</org.kohsuke.stapler.version>
