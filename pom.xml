@@ -87,12 +87,12 @@
         <!--
             stapler-1.172 depends on r06, which is missing symbol
             com.google.common.collect.ImmutableList.copyOf(Ljava/util/Collection;)
-            new version 10.0.1 with this symbol is provided in jenkins-1.424.6
+            new version 11.0.1 with this symbol is provided in jenkins-1.424.6
         -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>10.0.1</version>
+            <version>11.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
