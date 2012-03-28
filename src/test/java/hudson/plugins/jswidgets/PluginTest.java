@@ -69,7 +69,7 @@ public class PluginTest extends HudsonTestCase {
     @LocalData
     public void testJsHealthWithoutBuilds() throws IOException, SAXException {
         final String greyIcon = "16x16/grey.png";
-        final String relative = "/job/foo/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/foo/" + JsConsts.URLNAME + "/health/";
         final String jobDescription = "Just a small instance for testing";
         checkJavaScriptOutput(greyIcon, relative);
         checkJavaScriptOutput(jobDescription, relative);
@@ -80,7 +80,7 @@ public class PluginTest extends HudsonTestCase {
     @LocalData
     public void testJsHealthWithBuilds() throws IOException, SAXException {
         final String blueIcon = "16x16/blue.png";
-        final String relative = "/job/bar/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/bar/" + JsConsts.URLNAME + "/health/";
         checkJavaScriptOutput(blueIcon, relative);
         checkHtmlOutput(blueIcon, relative);
         checkRowCount(webClient.goTo(relative + "?html=true"), 3);
@@ -89,7 +89,7 @@ public class PluginTest extends HudsonTestCase {
     @LocalData
     public void testJsHealthWithoutDescription() throws IOException, SAXException {
         final String blueIcon = "16x16/blue.png";
-        final String relative = "/job/bar/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/bar/" + JsConsts.URLNAME + "/health/";
         final String htmlNeedle = "job with \\'3\\' builds";
         checkJavaScriptOutput(htmlNeedle, relative);
         final JavaScriptPage javaScriptPage = checkJavaScriptOutput(blueIcon, relative + "?skipDescription=true");
@@ -153,7 +153,7 @@ public class PluginTest extends HudsonTestCase {
     @LocalData
     public void testJsBuildActionWithChangesAfterReloadOfConfiguration() throws IOException, SAXException {
         final String jobName = "bar";
-        final String jobPath = "/job/" + jobName + "/";
+        final String jobPath = "job/" + jobName + "/";
         final String build3 = jobPath + "1";
         checkJsWidgetsOnlyOnce(build3);
         @SuppressWarnings("unchecked")
@@ -167,7 +167,7 @@ public class PluginTest extends HudsonTestCase {
     @LocalData
     public void testJsBuildActionWithAnApostroph() throws IOException, SAXException {
         webClient.setJavaScriptEnabled(false); // TODO webClient chokes on the jshealth javascript right now
-        final String relative = "/job/bar/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/bar/" + JsConsts.URLNAME + "/health/";
         checkHtmlOutput("job with '3' builds", relative);
         checkJavaScriptOutput("job with \\'3\\' builds", relative);
     }
@@ -187,8 +187,8 @@ public class PluginTest extends HudsonTestCase {
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
         final String nodeName = "master Jenkins node";
-        webClient.goTo("/job/bar/build");
         // Sleep 3 seconds to account for fast machines as the build might not be finished during test phase.
+        webClient.goTo("job/bar/build");
         Thread.sleep(TimeUnit.MILLISECONDS.convert(5, TimeUnit.SECONDS));
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }

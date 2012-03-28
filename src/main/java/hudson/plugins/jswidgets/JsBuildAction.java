@@ -10,6 +10,7 @@ import hudson.scm.ChangeLogSet.Entry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +28,7 @@ public class JsBuildAction extends JsBaseAction {
     private final AbstractBuild<?, ?> build;
 
     /** describe type of edits. */
-    private static final HashMap<EditType, String> EDIT_TYPE_SYMBOLS = new HashMap<EditType, String>();
+    private static final Map<EditType, String> EDIT_TYPE_SYMBOLS = new HashMap<EditType, String>();
 
     static {
         EDIT_TYPE_SYMBOLS.put(EditType.ADD, "+");
