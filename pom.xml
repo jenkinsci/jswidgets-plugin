@@ -85,18 +85,13 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>1.4</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jvnet.hudson</groupId>
             <artifactId>test-annotations</artifactId>
             <version>1.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.4</version>
         </dependency>
         <!--
             stapler-1.172 depends on r06, which is missing symbol
