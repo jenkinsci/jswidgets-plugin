@@ -8,7 +8,7 @@
             <h2>${%Widgets for} ${job.name}</h2>            
             <j:set var="baseURL" value="${it.getBaseUrl(request)}" />            
             <h3>${%Job Health Javascript for} ${job.name}</h3>
-            <j:set var="jshealthURL" value="${baseURL}/${job.url}${it.urlName}/health/"/>
+            <j:set var="jshealthURL" value="${baseURL}/${job.url}${it.urlName}/health"/>
             <p>${%Copy this snippet to a HTML page to include via Javascript}</p>
             <p><tt>&amp;lt;script type="text/javascript" src="${jshealthURL}?skipDescription=true"&amp;gt;&amp;lt;/script&amp;gt;</tt></p>
             <script type="text/javascript" src="${jshealthURL}?skipDescription=true"></script>

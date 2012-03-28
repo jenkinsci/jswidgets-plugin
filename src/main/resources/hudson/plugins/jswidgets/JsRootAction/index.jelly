@@ -7,7 +7,7 @@
             <h2>${%JS Widgets for Hudson}</h2>            
             <j:set var="baseURL" value="${it.getBaseUrl(request)}"/>            
             <h3>${%Build History Javascript}</h3>
-            <j:set var="jsrunsURL" value="${baseURL}${it.urlName}/runs/"/>
+            <j:set var="jsrunsURL" value="${baseURL}${it.urlName}/runs"/>
             <p>${%Copy this snippet to a HTML page to include via Javascript.}</p>
             <p>${%Use optional count to restrict the number of items.}</p>
             <p><tt>&amp;lt;script type="text/javascript" src="${jsrunsURL}[?count=N]"&amp;gt;&amp;lt;/script&amp;gt;</tt></p>

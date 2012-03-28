@@ -8,7 +8,7 @@
             <h2>${%JS Widgets for} ${build} built on ${it.builtOn}</h2>            
             <j:set var="baseURL" value="${it.getBaseUrl(request)}" />            
             <h3>${%ChangeSet Javascript for} ${build}</h3>
-            <j:set var="jschangesURL" value="${baseURL}/${build.url}${it.urlName}/changes/"/>
+            <j:set var="jschangesURL" value="${baseURL}/${build.url}${it.urlName}/changes"/>
             <p>${%Copy this snippet to a HTML page to include via Javascript}.</p>
             <p><tt>&amp;lt;script type="text/javascript" src="${jschangesURL}"&amp;gt;&amp;lt;/script&amp;gt;</tt></p>
             <script type="text/javascript" src="${jschangesURL}"></script>
