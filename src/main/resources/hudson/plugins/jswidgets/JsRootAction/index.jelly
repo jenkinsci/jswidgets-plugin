@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson"
     xmlns:f="/lib/form">
-    <l:layout title="${%JS Widgets for Hudson}">
+    <l:layout title="${%JS Widgets for Jenkins}">
         <!-- st:include page="/hudson/model/Hudson/sidepanel.jelly" /-->
         <l:main-panel>
-            <h2>${%JS Widgets for Hudson}</h2>            
-            <j:set var="baseURL" value="${it.getBaseUrl(request)}"/>            
+            <h2>${%JS Widgets for Jenkins}</h2>
+            <j:set var="baseURL" value="${it.getBaseUrl(request)}"/>
             <h3>${%Build History Javascript}</h3>
             <j:set var="jsrunsURL" value="${baseURL}${it.urlName}/runs"/>
             <p>${%Copy this snippet to a HTML page to include via Javascript.}</p>

@@ -44,7 +44,7 @@ public abstract class JsBaseAction implements Action {
     }
 
     /**
-     * Calculates Hudson's URL including protocol, host and port from the request.
+     * Calculates Jenkins' URL including protocol, host and port from the request.
      * 
      * @param req
      *            request from the jelly page.
