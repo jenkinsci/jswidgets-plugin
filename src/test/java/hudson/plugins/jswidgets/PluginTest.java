@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 import com.gargoylesoftware.htmlunit.JavaScriptPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
 public class PluginTest extends HudsonTestCase {
 
@@ -84,6 +85,8 @@ public class PluginTest extends HudsonTestCase {
         checkJavaScriptOutput(blueIcon, relative);
         checkHtmlOutput(blueIcon, relative);
         checkRowCount(webClient.goTo(relative + "?html=true"), 3);
+        XmlPage gadget = webClient.goToXml("job/bar/" + JsConsts.URLNAME + "/health-gadget.xml");
+        assertXPath(gadget, "/Module/Content[@type=\"html\"]");
     }
 
     @LocalData

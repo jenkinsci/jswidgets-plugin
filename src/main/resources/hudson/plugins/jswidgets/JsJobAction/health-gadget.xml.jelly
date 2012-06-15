@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson"
-    xmlns:f="/lib/form">${response.setContentType("text/xml; charset=UTF-8")}<![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>
+    xmlns:f="/lib/form">${response.setContentType("application/xml; charset=UTF-8")}<![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]>
     <j:set var="skipDescription" value="${it.skipDescription(request)}"/>
     <j:set var="job" value="${it.project}"/>
     <j:set var="baseURL" value="${it.getBaseUrl(request)}${rootURL}"/>
