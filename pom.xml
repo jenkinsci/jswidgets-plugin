@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.424.6</version><!-- which version of Jenkins is this plugin built against? -->
+        <version>1.480.3</version><!-- which version of Jenkins is this plugin built against? -->
     </parent>
 
     <artifactId>jswidgets</artifactId>
@@ -43,8 +43,8 @@
     </scm>
     <distributionManagement>
         <repository>
-            <id>java.net-m2-repository</id>
-            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+            <id>repo.jenkins-ci.org</id>
+            <url>http://repo.jenkins-ci.org/releases/</url>
         </repository>
     </distributionManagement>
 
@@ -96,7 +96,7 @@
         <!--
             stapler-1.172 depends on r06, which is missing symbol
             com.google.common.collect.ImmutableList.copyOf(Ljava/util/Collection;)
-            new version 11.0.1 with this symbol is provided in jenkins-1.424.6
+            new version 11.0.1 with this symbol is provided in jenkins-1.480.3
         -->
         <dependency>
             <groupId>com.google.guava</groupId>
