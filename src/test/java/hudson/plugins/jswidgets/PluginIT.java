@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,11 +28,13 @@ import org.xml.sax.SAXException;
 import com.gargoylesoftware.htmlunit.JavaScriptPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PluginIT extends HudsonTestCase {
 
     /** Our logger. */
-    private static final Logger LOG = Logger.getLogger(PluginIT.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(PluginIT.class);
 
     /**
      *
