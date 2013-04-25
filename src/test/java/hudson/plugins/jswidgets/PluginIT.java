@@ -30,6 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class PluginIT {
     private static final Logger LOG = LoggerFactory.getLogger(PluginIT.class);
 
     @Rule
-    JenkinsRule j = new JenkinsRule();
+    public JenkinsRule j = new JenkinsRule();
     
     /**
      *
@@ -52,7 +53,7 @@ public class PluginIT {
     private JenkinsRule.WebClient webClient;
 
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         webClient = j.createWebClient();
     }
 
@@ -60,7 +61,7 @@ public class PluginIT {
      * {@inheritDoc}. Deletes the hudson instance directory on teardown to avoid leakage of testdirectories.
      */
     @After
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         final File rootDir = j.jenkins.getRootDir();
         LOG.info("Deleting " + rootDir + " in tearDown");
         FileUtils.deleteDirectory(rootDir);
@@ -72,6 +73,7 @@ public class PluginIT {
      * @throws IOException
      * @throws SAXException
      */
+    @Test
     @LocalData
     public void testJsHealthWithoutBuilds() throws IOException, SAXException {
         final String greyIcon = "16x16/grey.png";
