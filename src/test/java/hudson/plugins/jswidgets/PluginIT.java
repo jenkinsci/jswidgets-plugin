@@ -3,7 +3,6 @@
  */
 package hudson.plugins.jswidgets;
 
-import static org.junit.Assert.assertArrayEquals;
 import hudson.model.Hudson;
 import hudson.model.Project;
 import hudson.model.User;
@@ -21,21 +20,28 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.jvnet.hudson.test.Bug;
-import org.jvnet.hudson.test.HudsonTestCase;
 import org.jvnet.hudson.test.recipes.LocalData;
 import org.xml.sax.SAXException;
 
 import com.gargoylesoftware.htmlunit.JavaScriptPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import static org.junit.Assert.*;
+import org.jvnet.hudson.test.JenkinsRule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PluginIT extends HudsonTestCase {
+public class PluginIT {
 
     /** Our logger. */
     private static final Logger LOG = LoggerFactory.getLogger(PluginIT.class);
 
+    @Rule
+    JenkinsRule j = new JenkinsRule();
+    
     /**
      *
      */
@@ -43,21 +49,19 @@ public class PluginIT extends HudsonTestCase {
 
     private static final String JAVA_SCRIPT_NEEDLE = "document.write(";
 
-    private WebClient webClient;
+    private JenkinsRule.WebClient webClient;
 
-    @Override
+    @Before
     protected void setUp() throws Exception {
-        super.setUp();
-        webClient = createWebClient();
+        webClient = j.createWebClient();
     }
 
     /**
      * {@inheritDoc}. Deletes the hudson instance directory on teardown to avoid leakage of testdirectories.
      */
-    @Override
+    @After
     protected void tearDown() throws Exception {
-        super.tearDown();
-        final File rootDir = hudson.getRootDir();
+        final File rootDir = j.jenkins.getRootDir();
         LOG.info("Deleting " + rootDir + " in tearDown");
         FileUtils.deleteDirectory(rootDir);
     }
@@ -87,7 +91,7 @@ public class PluginIT extends HudsonTestCase {
         checkHtmlOutput(blueIcon, relative);
         checkRowCount(webClient.goTo(relative + "?html=true"), 3);
         XmlPage gadget = webClient.goToXml("job/bar/" + JsConsts.URLNAME + "/health-gadget.xml");
-        assertXPath(gadget, "/Module/Content[@type=\"html\"]");
+        j.assertXPath(gadget, "/Module/Content[@type=\"html\"]");
     }
 
     @LocalData
