@@ -3,9 +3,10 @@ package hudson.plugins.jswidgets;
 import hudson.Functions;
 import hudson.model.Action;
 
-import java.util.logging.Logger;
-
 import org.kohsuke.stapler.StaplerRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implements some basic methods for returning baseUrl and image paths. This is the base class for javascript actions.
@@ -15,7 +16,7 @@ import org.kohsuke.stapler.StaplerRequest;
 public abstract class JsBaseAction implements Action {
 
     /** Our logger. */
-    private static final Logger LOG = Logger.getLogger(JsBaseAction.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JsBaseAction.class);
 
     /**
      * Returns whether we want HTML instead of javascript by checking the request for {@literal html=true}.
@@ -26,7 +27,7 @@ public abstract class JsBaseAction implements Action {
      */
     public boolean wantHtml(final StaplerRequest request) {
         final boolean wantHtml = Boolean.parseBoolean(request.getParameter("html"));
-        LOG.finest("wantHtml=" + wantHtml);
+        LOG.debug("wantHtml={}", wantHtml);
         return wantHtml;
     }
 
@@ -39,7 +40,7 @@ public abstract class JsBaseAction implements Action {
      */
     public boolean skipDescription(final StaplerRequest request) {
         final boolean skipDescription = Boolean.parseBoolean(request.getParameter("skipDescription"));
-        LOG.finest("skipDescription=" + skipDescription);
+        LOG.trace("skipDescription={}", skipDescription);
         return skipDescription;
     }
 
@@ -55,7 +56,7 @@ public abstract class JsBaseAction implements Action {
         final String requestURI = req.getRequestURI();
         final String baseUrl = requestURL.substring(0, requestURL.length() - requestURI.length())
                 + req.getContextPath();
-        LOG.finest("baseUrl=" + baseUrl + " from requestURL=" + requestURL);
+        LOG.trace("baseUrl={} from requestURL={}", baseUrl, requestURL);
         return baseUrl;
     }
 
@@ -70,7 +71,7 @@ public abstract class JsBaseAction implements Action {
      */
     public String getImagesUrl(final StaplerRequest req) {
         final String imagesPath = getBaseUrl(req) + Functions.getResourcePath() + "/images/16x16";
-        LOG.finest("imagesPath=" + imagesPath);
+        LOG.trace("imagesPath={}", imagesPath);
         return imagesPath;
     }
 

@@ -3,7 +3,8 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.480.3</version><!-- which version of Jenkins is this plugin built against? -->
+        <!-- which version of Jenkins is this plugin built against? Use latest LTS. -->
+        <version>1.480.3</version>        
     </parent>
 
     <artifactId>jswidgets</artifactId>
@@ -68,6 +69,11 @@
     </pluginRepositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.2</version><!-- from 1.480.3 war -->
+        </dependency>        
         <dependency>
             <groupId>org.kohsuke.stapler</groupId>
             <artifactId>stapler</artifactId>
