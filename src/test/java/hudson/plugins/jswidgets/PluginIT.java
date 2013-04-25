@@ -30,10 +30,10 @@ import com.gargoylesoftware.htmlunit.JavaScriptPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
-public class PluginTest extends HudsonTestCase {
+public class PluginIT extends HudsonTestCase {
 
     /** Our logger. */
-    private static final Logger LOG = Logger.getLogger(PluginTest.class.getName());
+    private static final Logger LOG = Logger.getLogger(PluginIT.class.getName());
 
     /**
      *
