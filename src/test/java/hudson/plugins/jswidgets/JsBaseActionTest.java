@@ -7,6 +7,7 @@ package hudson.plugins.jswidgets;
 import org.junit.Test;
 import org.kohsuke.stapler.StaplerRequest;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -14,23 +15,17 @@ import static org.junit.Assert.*;
  */
 public class JsBaseActionTest {
     
-    public JsBaseActionTest() {
-        new JsBaseActionImpl();
-    }
-
+    final JsBaseActionImpl sut = new JsBaseActionImpl();
+    final StaplerRequest mockStaplerRequest = mock(StaplerRequest.class);
     /**
      * Test of wantHtml method, of class JsBaseAction.
      */
     @Test
     public void testWantHtml() {
-        System.out.println("wantHtml");
-        StaplerRequest request = null;
-        JsBaseAction instance = new JsBaseActionImpl();
+        when(mockStaplerRequest.getParameter("html")).thenReturn("false");
         boolean expResult = false;
-        boolean result = instance.wantHtml(request);
+        boolean result = sut.wantHtml(mockStaplerRequest);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -38,14 +33,10 @@ public class JsBaseActionTest {
      */
     @Test
     public void testSkipDescription() {
-        System.out.println("skipDescription");
-        StaplerRequest request = null;
-        JsBaseAction instance = new JsBaseActionImpl();
+        when(mockStaplerRequest.getParameter("skipDescription")).thenReturn("false");
         boolean expResult = false;
-        boolean result = instance.skipDescription(request);
+        boolean result = sut.skipDescription(mockStaplerRequest);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -53,14 +44,10 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetBaseUrl() {
-        System.out.println("getBaseUrl");
-        StaplerRequest req = null;
-        JsBaseAction instance = new JsBaseActionImpl();
-        String expResult = "";
-        String result = instance.getBaseUrl(req);
+        setupBaseUrlRequest();
+        String expResult = "http://localhost:8080/jenkins";
+        String result = sut.getBaseUrl(mockStaplerRequest);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -68,14 +55,10 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetImagesUrl() {
-        System.out.println("getImagesUrl");
-        StaplerRequest req = null;
-        JsBaseAction instance = new JsBaseActionImpl();
-        String expResult = "";
-        String result = instance.getImagesUrl(req);
+        setupBaseUrlRequest();
+        String expResult = "http://localhost:8080/jenkins/images/16x16";
+        String result = sut.getImagesUrl(mockStaplerRequest);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -83,13 +66,9 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetDisplayName() {
-        System.out.println("getDisplayName");
-        JsBaseAction instance = new JsBaseActionImpl();
-        String expResult = "";
-        String result = instance.getDisplayName();
+        String expResult = JsConsts.DISPLAYNAME;
+        String result = sut.getDisplayName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -97,13 +76,9 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetIconFileName() {
-        System.out.println("getIconFileName");
-        JsBaseAction instance = new JsBaseActionImpl();
-        String expResult = "";
-        String result = instance.getIconFileName();
+        String expResult = JsConsts.ICONFILENAME;
+        String result = sut.getIconFileName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,16 +86,18 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetUrlName() {
-        System.out.println("getUrlName");
-        JsBaseAction instance = new JsBaseActionImpl();
-        String expResult = "";
-        String result = instance.getUrlName();
+        String expResult = JsConsts.URLNAME;
+        String result = sut.getUrlName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
-    public class JsBaseActionImpl extends JsBaseAction {
+    void setupBaseUrlRequest() {
+        when(mockStaplerRequest.getRequestURI()).thenReturn("/jenkins/foo");
+        when(mockStaplerRequest.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/jenkins/foo"));
+        when(mockStaplerRequest.getContextPath()).thenReturn("/jenkins");
+    }
+
+    public static class JsBaseActionImpl extends JsBaseAction {
     }
     
 }
