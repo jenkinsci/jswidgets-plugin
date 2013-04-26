@@ -3,7 +3,6 @@
  */
 package hudson.plugins.jswidgets;
 
-import static org.junit.Assert.assertArrayEquals;
 import hudson.model.Hudson;
 import hudson.model.Project;
 import hudson.model.User;
@@ -16,24 +15,33 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.jvnet.hudson.test.Bug;
-import org.jvnet.hudson.test.HudsonTestCase;
 import org.jvnet.hudson.test.recipes.LocalData;
 import org.xml.sax.SAXException;
 
 import com.gargoylesoftware.htmlunit.JavaScriptPage;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.jvnet.hudson.test.JenkinsRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class PluginTest extends HudsonTestCase {
+public class PluginIT {
 
     /** Our logger. */
-    private static final Logger LOG = Logger.getLogger(PluginTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(PluginIT.class);
+
+    @Rule
+    public JenkinsRule j = new JenkinsRule();
 
     /**
      *
@@ -42,35 +50,34 @@ public class PluginTest extends HudsonTestCase {
 
     private static final String JAVA_SCRIPT_NEEDLE = "document.write(";
 
-    private WebClient webClient;
+    private JenkinsRule.WebClient webClient;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        webClient = createWebClient();
+    @Before
+    public void setUp() throws Exception {
+        webClient = j.createWebClient();
     }
 
     /**
      * {@inheritDoc}. Deletes the hudson instance directory on teardown to avoid leakage of testdirectories.
      */
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        final File rootDir = hudson.getRootDir();
+    @After
+    public void tearDown() throws Exception {
+        final File rootDir = j.jenkins.getRootDir();
         LOG.info("Deleting " + rootDir + " in tearDown");
         FileUtils.deleteDirectory(rootDir);
     }
 
     /**
      * Test method for an existing job without any builds.
-     * 
+     *
      * @throws IOException
      * @throws SAXException
      */
+    @Test
     @LocalData
     public void testJsHealthWithoutBuilds() throws IOException, SAXException {
         final String greyIcon = "16x16/grey.png";
-        final String relative = "job/foo/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/foo/" + JsConsts.URLNAME + "/health";
         final String jobDescription = "Just a small instance for testing";
         checkJavaScriptOutput(greyIcon, relative);
         checkJavaScriptOutput(jobDescription, relative);
@@ -78,21 +85,23 @@ public class PluginTest extends HudsonTestCase {
         checkHtmlOutput(jobDescription, relative);
     }
 
+    @Test
     @LocalData
     public void testJsHealthWithBuilds() throws IOException, SAXException {
         final String blueIcon = "16x16/blue.png";
-        final String relative = "job/bar/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/bar/" + JsConsts.URLNAME + "/health";
         checkJavaScriptOutput(blueIcon, relative);
         checkHtmlOutput(blueIcon, relative);
         checkRowCount(webClient.goTo(relative + "?html=true"), 3);
         XmlPage gadget = webClient.goToXml("job/bar/" + JsConsts.URLNAME + "/health-gadget.xml");
-        assertXPath(gadget, "/Module/Content[@type=\"html\"]");
+        j.assertXPath(gadget, "/Module/Content[@type=\"html\"]");
     }
 
+    @Test
     @LocalData
     public void testJsHealthWithoutDescription() throws IOException, SAXException {
         final String blueIcon = "16x16/blue.png";
-        final String relative = "job/bar/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/bar/" + JsConsts.URLNAME + "/health";
         final String htmlNeedle = "job with \\'3\\' builds";
         checkJavaScriptOutput(htmlNeedle, relative);
         final JavaScriptPage javaScriptPage = checkJavaScriptOutput(blueIcon, relative + "?skipDescription=true");
@@ -100,46 +109,37 @@ public class PluginTest extends HudsonTestCase {
         assertFalse(htmlNeedle + " found in " + javaScript, javaScript.contains(htmlNeedle));
     }
 
+    @Test
     @LocalData
     public void testBuildHistoryWhereCountIsNull() throws IOException, SAXException {
         final String htmlNeedle = "<div align=\"center\">";
-        final String relative = "/" + JsConsts.URLNAME + "/runs/";
+        final String relative = "/" + JsConsts.URLNAME + "/runs";
         checkHtmlOutput(htmlNeedle, relative);
         checkJavaScriptOutput(htmlNeedle, relative);
         checkRowCount(webClient.goTo(relative + "?html=true"), TOTAL_NUMBER_OF_RUNS);
     }
 
-    /**
-     * @param htmlPage
-     * @param expectedRows
-     */
-    private void checkRowCount(final HtmlPage htmlPage, final int expectedRows) {
-        final String xml = htmlPage.asXml();
-        final Pattern pattern = Pattern.compile("<tr>");
-        final Matcher matcher = pattern.matcher(xml);
-        int foundRows = 0;
-        while (matcher.find()) {
-            foundRows++;
-        }
-        assertEquals(xml, expectedRows, foundRows);
-    }
 
+    @Test
     @LocalData
     public void testBuildHistoryWhereCountIsGiven() throws IOException, SAXException {
-        checkRowCount(webClient.goTo("/" + JsConsts.URLNAME + "/runs/" + "?html=true&count=2"), 2);
+        checkRowCount(webClient.goTo("/" + JsConsts.URLNAME + "/runs" + "?html=true&count=2"), 2);
     }
 
+    @Test
     @LocalData
     public void testBuildHistoryWhereCountGreaterThanSizeOfRunlist() throws IOException, SAXException {
-        checkRowCount(webClient.goTo("/" + JsConsts.URLNAME + "/runs/" + "?html=true&count=100"), TOTAL_NUMBER_OF_RUNS);
+        checkRowCount(webClient.goTo("/" + JsConsts.URLNAME + "/runs" + "?html=true&count=100"), TOTAL_NUMBER_OF_RUNS);
     }
 
+    @Test
     @LocalData
     public void testJsJobIndexAction() throws IOException, SAXException {
         webClient.setJavaScriptEnabled(false); // TODO webClient chokes on the jshealth javascript right now
         checkSubJelly("/job/foo", "health");
     }
 
+    @Test
     @LocalData
     public void testJsBuildActionWithChanges() throws IOException, SAXException {
         final String buildPath = "/job/svntest/4";
@@ -152,6 +152,7 @@ public class PluginTest extends HudsonTestCase {
         testJsBuildAction(buildPath, changesJelly, "#/trunk/foo", nodeName);
     }
 
+    @Test
     @Bug(4889)
     @LocalData
     public void testJsBuildActionWithChangesAfterReloadOfConfiguration() throws IOException, SAXException {
@@ -166,15 +167,17 @@ public class PluginTest extends HudsonTestCase {
         checkJsWidgetsOnlyOnce(build3);
     }
 
+    @Test
     @Bug(5106)
     @LocalData
     public void testJsBuildActionWithAnApostroph() throws IOException, SAXException {
         webClient.setJavaScriptEnabled(false); // TODO webClient chokes on the jshealth javascript right now
-        final String relative = "job/bar/" + JsConsts.URLNAME + "/health/";
+        final String relative = "job/bar/" + JsConsts.URLNAME + "/health";
         checkHtmlOutput("job with '3' builds", relative);
         checkJavaScriptOutput("job with \\'3\\' builds", relative);
     }
 
+    @Test
     @LocalData
     public void testJsBuildActionWithOutChanges() throws IOException, SAXException {
         final String buildPath = "/job/svntest/2";
@@ -184,6 +187,7 @@ public class PluginTest extends HudsonTestCase {
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }
 
+    @Test
     @LocalData
     public void testJsRunListener() throws IOException, SAXException, InterruptedException {
         final String buildPath = "/job/bar/4";
@@ -196,6 +200,7 @@ public class PluginTest extends HudsonTestCase {
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }
 
+    @Test
     @LocalData
     public void testJsProjectActionFactory() {
         @SuppressWarnings("unchecked")
@@ -208,6 +213,7 @@ public class PluginTest extends HudsonTestCase {
         assertEquals(1, firstProject.getActions(JsJobAction.class).size());
     }
 
+    @Test
     public void testSCMWithoutAffectedFilesImplementation() {
         final Entry entry = new ChangeLogSet.Entry() {
 
@@ -245,14 +251,29 @@ public class PluginTest extends HudsonTestCase {
         final String indexPath = buildPath + "/" + JsConsts.URLNAME;
         // Built on removed slave.
         checkHtmlOutput(nodeName, indexPath);
-        final String changesPath = indexPath + "/changes/";
+        final String changesPath = indexPath + "/changes";
         checkHtmlOutput(changeLogNeedle, changesPath);
         checkJavaScriptOutput(changeLogNeedle, changesPath);
     }
 
     /**
+     * @param htmlPage
+     * @param expectedRows
+     */
+    private void checkRowCount(final HtmlPage htmlPage, final int expectedRows) {
+        final String xml = htmlPage.asXml();
+        final Pattern pattern = Pattern.compile("<tr>");
+        final Matcher matcher = pattern.matcher(xml);
+        int foundRows = 0;
+        while (matcher.find()) {
+            foundRows++;
+        }
+        assertEquals(xml, expectedRows, foundRows);
+    }
+
+    /**
      * Checks the existence of the index-jelly entry and an additional specialized jelly referenced by jellyPath.
-     * 
+     *
      * @param objectPath
      * @param jellyPath
      * @throws IOException
@@ -323,7 +344,7 @@ public class PluginTest extends HudsonTestCase {
 
     /**
      * Checks that the jsindex.png is only referenced once on the page.
-     * 
+     *
      * @param build
      * @throws IOException
      * @throws SAXException

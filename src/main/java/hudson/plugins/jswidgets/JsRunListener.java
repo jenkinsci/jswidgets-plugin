@@ -3,8 +3,8 @@ package hudson.plugins.jswidgets;
 import hudson.Extension;
 import hudson.model.AbstractBuild;
 import hudson.model.listeners.RunListener;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This listener adds a {@link JsBuildAction} to every new build.
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public final class JsRunListener extends RunListener<AbstractBuild> {
 
     /** The Logger. */
-    private static final Logger LOG = Logger.getLogger(JsRunListener.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JsRunListener.class);
 
     /**
      * {@link Extension} needs parameterless constructor.
@@ -36,10 +36,10 @@ public final class JsRunListener extends RunListener<AbstractBuild> {
         if (r.getAction(JsBuildAction.class) == null) {
             final JsBuildAction jsBuildAction = new JsBuildAction(r);
             r.addAction(jsBuildAction);
-            LOG.fine(r.toString() + ":" + r.getActions().toString());
-            LOG.fine("Registering " + jsBuildAction.getDisplayName() + " for " + r);
+            LOG.debug("{}: Actions={}", r, r.getActions());
+            LOG.debug("{}: Registering " + jsBuildAction.getDisplayName());
         } else {
-            LOG.fine(r.toString() + " already has " + JsBuildAction.class.getName());
+            LOG.debug("{}: {} is already registered", r, JsBuildAction.class.getName());
         }
         super.onFinalized(r);
     }
