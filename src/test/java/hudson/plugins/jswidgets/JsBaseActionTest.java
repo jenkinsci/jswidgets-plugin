@@ -4,6 +4,7 @@
 
 package hudson.plugins.jswidgets;
 
+import jenkins.model.Jenkins;
 import org.junit.Test;
 import org.kohsuke.stapler.StaplerRequest;
 import static org.junit.Assert.*;
@@ -14,9 +15,11 @@ import static org.mockito.Mockito.*;
  * @author mifr
  */
 public class JsBaseActionTest {
-    
-    final JsBaseActionImpl sut = new JsBaseActionImpl();
+
+    final Jenkins mockJenkins = mock(Jenkins.class);
     final StaplerRequest mockStaplerRequest = mock(StaplerRequest.class);
+    final JsBaseActionImpl sut = new JsBaseActionImpl(mockJenkins);
+
     /**
      * Test of wantHtml method, of class JsBaseAction.
      */
@@ -92,12 +95,17 @@ public class JsBaseActionTest {
     }
 
     void setupBaseUrlRequest() {
+        when(mockJenkins.getRootUrl()).thenReturn("http://localhost:8080/jenkins");
         when(mockStaplerRequest.getRequestURI()).thenReturn("/jenkins/foo");
         when(mockStaplerRequest.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/jenkins/foo"));
         when(mockStaplerRequest.getContextPath()).thenReturn("/jenkins");
     }
 
     public static class JsBaseActionImpl extends JsBaseAction {
+
+        JsBaseActionImpl(Jenkins jenkins) {
+            super(jenkins);
+        }
     }
-    
+
 }
