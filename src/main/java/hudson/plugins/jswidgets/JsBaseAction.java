@@ -19,15 +19,19 @@ public abstract class JsBaseAction implements Action {
     /** Our logger. */
     private static final Logger LOG = LoggerFactory.getLogger(JsBaseAction.class);
 
-    private transient final Jenkins jenkins;
+    /** Jenkins instance injecible for unit tests. */
+    private final transient Jenkins jenkins;
 
+    /**
+      * Default constructor for normal run.
+      */
     public JsBaseAction() {
         this(Jenkins.getInstance());
     }
 
     /**
      * Just for tests.
-     * @param jenkins
+     * @param jenkins for testing.
      */
     JsBaseAction(Jenkins jenkins) {
         this.jenkins = jenkins;
