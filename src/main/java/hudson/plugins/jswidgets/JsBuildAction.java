@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class implements the JS widgets pages for a build.
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
 public class JsBuildAction extends JsBaseAction {
     
     /** Our logger. */
-    private static final Logger LOG = Logger.getLogger(JsBuildAction.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JsBuildAction.class);
 
 
     /** the build this action acts on. */
@@ -101,7 +102,7 @@ public class JsBuildAction extends JsBaseAction {
         try {
             affectedFiles = entry.getAffectedFiles();
         } catch (UnsupportedOperationException e) {
-            LOG.warning("Got " + e + ", falling back to getAffectedPaths");
+            LOG.warn("Got {}, falling back to getAffectedPaths", e);
             return entry.getAffectedPaths();
         }
         final ArrayList<String> entries = new ArrayList<String>();

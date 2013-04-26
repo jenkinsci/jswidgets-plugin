@@ -4,7 +4,9 @@ import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class implements the JS widgets pages for a job.
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
 public class JsJobAction extends JsBaseAction {
 
     /** The Logger. */
-    private static final Logger LOG = Logger.getLogger(JsJobAction.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JsJobAction.class);
 
     /** The project. */
     private final transient AbstractProject<?, ?> project;
@@ -33,11 +35,11 @@ public class JsJobAction extends JsBaseAction {
             if (jsBuildActions.isEmpty()) {                
                 final JsBuildAction jsBuildAction = new JsBuildAction(build);
                 build.addAction(jsBuildAction);
-                LOG.fine("Adding " + jsBuildAction + " to " + build);
+                LOG.debug("Adding {} to {}", jsBuildAction, build);
             } else {
-                LOG.fine(build + " already has " + jsBuildActions);
+                LOG.debug("{} already has {}", build, jsBuildActions);
             }
-            LOG.fine(build + ":" + build.getActions());
+            LOG.trace("{}:{}", build, build.getActions());
         }
 
     }
