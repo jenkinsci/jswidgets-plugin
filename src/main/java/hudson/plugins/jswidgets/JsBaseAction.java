@@ -67,7 +67,13 @@ public abstract class JsBaseAction implements Action {
      * @return the baseurl
      */
     public String getBaseUrl(final StaplerRequest req) {
-        return jenkins.getRootUrl();
+        final String rootUrl = jenkins.getRootUrl();
+        if (rootUrl.endsWith("/")) {
+            final String rootUrlWithoutTrailingSlash = rootUrl.substring(0, rootUrl.length() - 1);
+            return rootUrlWithoutTrailingSlash;
+        } else {
+            return rootUrl;
+        }
     }
 
     /**
