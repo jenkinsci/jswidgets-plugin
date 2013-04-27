@@ -19,15 +19,19 @@ public abstract class JsBaseAction implements Action {
     /** Our logger. */
     private static final Logger LOG = LoggerFactory.getLogger(JsBaseAction.class);
 
-    private transient final Jenkins jenkins;
+    /** Jenkins instance injecible for unit tests. */
+    private final transient Jenkins jenkins;
 
+    /**
+      * Default constructor for normal run.
+      */
     public JsBaseAction() {
         this(Jenkins.getInstance());
     }
 
     /**
      * Just for tests.
-     * @param jenkins
+     * @param jenkins for testing.
      */
     JsBaseAction(Jenkins jenkins) {
         this.jenkins = jenkins;
@@ -67,7 +71,13 @@ public abstract class JsBaseAction implements Action {
      * @return the baseurl
      */
     public String getBaseUrl(final StaplerRequest req) {
-        return jenkins.getRootUrl();
+        final String rootUrl = jenkins.getRootUrl();
+        if (rootUrl.endsWith("/")) {
+            final String rootUrlWithoutTrailingSlash = rootUrl.substring(0, rootUrl.length() - 1);
+            return rootUrlWithoutTrailingSlash;
+        } else {
+            return rootUrl;
+        }
     }
 
     /**
