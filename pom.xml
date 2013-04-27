@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>jswidgets</artifactId>
-    <version>1.10-SNAPSHOT</version>
+    <version>1.10</version>
     <packaging>hpi</packaging>
     <name>Jenkins Javascript Widgets Plugin</name>
     <description>Allows embedding various statistics available from Jenkins in your via javascript-snippets ala ohloh.net</description>
