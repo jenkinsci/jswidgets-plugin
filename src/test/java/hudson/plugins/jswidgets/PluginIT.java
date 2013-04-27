@@ -30,6 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.slf4j.Logger;
@@ -184,19 +185,6 @@ public class PluginIT {
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
         final String nodeName = "master Jenkins node";
-        testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
-    }
-
-    @Test
-    @LocalData
-    public void testJsRunListener() throws IOException, SAXException, InterruptedException {
-        final String buildPath = "/job/bar/4";
-        final String changesJelly = "changes";
-        final String changeLogNeedle = "No changes in this build";
-        final String nodeName = "master Jenkins node";
-        // Sleep 3 seconds to account for fast machines as the build might not be finished during test phase.
-        webClient.goTo("job/bar/build");
-        Thread.sleep(TimeUnit.MILLISECONDS.convert(5, TimeUnit.SECONDS));
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }
 
