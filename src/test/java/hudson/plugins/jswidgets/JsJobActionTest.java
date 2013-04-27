@@ -5,6 +5,7 @@ import hudson.model.AbstractProject;
 import hudson.util.RunList;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.jvnet.hudson.test.Bug;
 import static org.mockito.Mockito.*;
 
 /**
@@ -14,6 +15,23 @@ import static org.mockito.Mockito.*;
 public class JsJobActionTest {
 
     final AbstractProject mockProject = mock(AbstractProject.class);
+
+    /**
+     * Test of addActionWhenNotExisting method, of class JsJobAction.
+     */
+    @Bug(4889)
+    @Test
+    public void testAddActionWhenNotExisting() {
+        AbstractBuild mockBuild = mock(AbstractBuild.class);
+        setupRunListWithAJsBuildAction();
+        JsJobAction sut = new JsJobAction(mockProject);
+        sut.addActionWhenNotExisting(mockBuild);
+        verify(mockBuild, times(1)).addAction(any(JsBuildAction.class));
+        when(mockBuild.getAction(JsBuildAction.class)).thenReturn(new JsBuildAction(mockBuild));
+        sut.addActionWhenNotExisting(mockBuild);
+        verify(mockBuild, times(1)).addAction(any(JsBuildAction.class));
+    }
+
 
     /**
      * Test of getProject method, of class JsJobAction.
@@ -64,5 +82,4 @@ public class JsJobActionTest {
         JsJobAction sut = new JsJobAction(mockProject);
         return sut;
     }
-
 }

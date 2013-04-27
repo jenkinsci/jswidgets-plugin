@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +29,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.slf4j.Logger;
@@ -151,21 +149,6 @@ public class PluginIT {
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
         // test JsBuildAction.getChangeSetEntries
         testJsBuildAction(buildPath, changesJelly, "#/trunk/foo", nodeName);
-    }
-
-    @Test
-    @Bug(4889)
-    @LocalData
-    public void testJsBuildActionWithChangesAfterReloadOfConfiguration() throws IOException, SAXException {
-        final String jobName = "bar";
-        final String jobPath = "job/" + jobName + "/";
-        final String build3 = jobPath + "1";
-        checkJsWidgetsOnlyOnce(build3);
-        @SuppressWarnings("unchecked")
-        final Project project = Hudson.getInstance().getItemByFullName(jobName, Project.class);
-        project.save();
-        new JsJobAction(project);
-        checkJsWidgetsOnlyOnce(build3);
     }
 
     @Test
