@@ -32,15 +32,7 @@ public class JsJobAction extends JsBaseAction {
         final RunList<?> builds = project.getBuilds();
         for (Object object : builds) {
             final AbstractBuild<?, ?> build = (AbstractBuild<?, ?>) object;
-            final List<JsBuildAction> jsBuildActions = build.getActions(JsBuildAction.class);
-            if (jsBuildActions.isEmpty()) {
-                final JsBuildAction jsBuildAction = new JsBuildAction(build);
-                build.addAction(jsBuildAction);
-                LOG.debug("Adding {} to {}", jsBuildAction, build);
-            } else {
-                LOG.debug("{} already has {}", build, jsBuildActions);
-            }
-            LOG.trace("{}:{}", build, build.getActions());
+            addActionWhenNotExisting(build);
         }
 
     }
@@ -63,6 +55,23 @@ public class JsJobAction extends JsBaseAction {
     public String getJobDescription(boolean escapeApostroph) {
         final String description = project.getDescription().replace("\n", "").replace("\r", "");
         return escapeApostroph ? description.replace("'", "\\'") : description;
+    }
+
+    /**
+     * Adds an {@link JsBuildAction} to all builds of the job exactly once.
+     *
+     * @param build to add the action to.
+     */
+    final void addActionWhenNotExisting(final AbstractBuild<?, ?> build) {
+        final JsBuildAction jsBuildAction = build.getAction(JsBuildAction.class);
+        if (jsBuildAction == null) {
+            final JsBuildAction newJsBuildAction = new JsBuildAction(build);
+            build.addAction(newJsBuildAction);
+            LOG.debug("Adding {} to {}", newJsBuildAction, build);
+        } else {
+            LOG.debug("{} already has {}", build, jsBuildAction);
+        }
+        LOG.trace("{}:{}", build, build.getActions());
     }
 
 }

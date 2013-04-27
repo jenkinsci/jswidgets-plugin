@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -153,21 +152,6 @@ public class PluginIT {
     }
 
     @Test
-    @Bug(4889)
-    @LocalData
-    public void testJsBuildActionWithChangesAfterReloadOfConfiguration() throws IOException, SAXException {
-        final String jobName = "bar";
-        final String jobPath = "job/" + jobName + "/";
-        final String build3 = jobPath + "1";
-        checkJsWidgetsOnlyOnce(build3);
-        @SuppressWarnings("unchecked")
-        final Project project = Hudson.getInstance().getItemByFullName(jobName, Project.class);
-        project.save();
-        new JsJobAction(project);
-        checkJsWidgetsOnlyOnce(build3);
-    }
-
-    @Test
     @Bug(5106)
     @LocalData
     public void testJsBuildActionWithAnApostroph() throws IOException, SAXException {
@@ -184,19 +168,6 @@ public class PluginIT {
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
         final String nodeName = "master Jenkins node";
-        testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
-    }
-
-    @Test
-    @LocalData
-    public void testJsRunListener() throws IOException, SAXException, InterruptedException {
-        final String buildPath = "/job/bar/4";
-        final String changesJelly = "changes";
-        final String changeLogNeedle = "No changes in this build";
-        final String nodeName = "master Jenkins node";
-        // Sleep 3 seconds to account for fast machines as the build might not be finished during test phase.
-        webClient.goTo("job/bar/build");
-        Thread.sleep(TimeUnit.MILLISECONDS.convert(5, TimeUnit.SECONDS));
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
     }
 
