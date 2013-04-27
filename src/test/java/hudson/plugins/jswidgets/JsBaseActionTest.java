@@ -47,10 +47,14 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetBaseUrl() {
-        setupBaseUrlRequest();
-        String expResult = "http://localhost:8080/jenkins";
-        String result = sut.getBaseUrl(mockStaplerRequest);
-        assertEquals(expResult, result);
+        final String expResult = "http://localhost:8080/jenkins";
+
+        setRootUrlWithoutTrailingSlash();
+        assertEquals(expResult, sut.getBaseUrl(mockStaplerRequest));
+
+        setRootUrlWithTrailingSlash();
+        assertEquals(expResult, sut.getBaseUrl(mockStaplerRequest));
+
     }
 
     /**
@@ -58,10 +62,13 @@ public class JsBaseActionTest {
      */
     @Test
     public void testGetImagesUrl() {
-        setupBaseUrlRequest();
-        String expResult = "http://localhost:8080/jenkins/images/16x16";
-        String result = sut.getImagesUrl(mockStaplerRequest);
-        assertEquals(expResult, result);
+        final String expResult = "http://localhost:8080/jenkins/images/16x16";
+
+        setRootUrlWithoutTrailingSlash();
+        assertEquals(expResult, sut.getImagesUrl(mockStaplerRequest));
+
+        setRootUrlWithTrailingSlash();
+        assertEquals(expResult, sut.getImagesUrl(mockStaplerRequest));
     }
 
     /**
@@ -94,11 +101,12 @@ public class JsBaseActionTest {
         assertEquals(expResult, result);
     }
 
-    void setupBaseUrlRequest() {
+    private void setRootUrlWithoutTrailingSlash() {
         when(mockJenkins.getRootUrl()).thenReturn("http://localhost:8080/jenkins");
-        when(mockStaplerRequest.getRequestURI()).thenReturn("/jenkins/foo");
-        when(mockStaplerRequest.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/jenkins/foo"));
-        when(mockStaplerRequest.getContextPath()).thenReturn("/jenkins");
+    }
+
+    private void setRootUrlWithTrailingSlash() {
+        when(mockJenkins.getRootUrl()).thenReturn("http://localhost:8080/jenkins/");
     }
 
     public static class JsBaseActionImpl extends JsBaseAction {
