@@ -75,12 +75,12 @@ public class PluginIT {
     @Test
     @LocalData
     public void testJsHealthWithoutBuilds() throws IOException, SAXException {
-        final String greyIcon = "16x16/grey.png";
+        final String emptyIcon = "16x16/empty.png";
         final String relative = "job/foo/" + JsConsts.URLNAME + "/health";
         final String jobDescription = "Just a small instance for testing";
-        checkJavaScriptOutput(greyIcon, relative);
+        checkJavaScriptOutput(emptyIcon, relative);
         checkJavaScriptOutput(jobDescription, relative);
-        checkHtmlOutput(greyIcon, relative);
+        checkHtmlOutput(emptyIcon, relative);
         checkHtmlOutput(jobDescription, relative);
     }
 
