@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
         <maven-surefire-report-plugin.version>${maven-surefire-plugin.version}</maven-surefire-report-plugin.version>
-        <org.kohsuke.stapler.version>1.198</org.kohsuke.stapler.version>
+        <org.kohsuke.stapler.version>1.223</org.kohsuke.stapler.version>
         <jacoco-maven-plugin.version>0.7.1.201405082137</jacoco-maven-plugin.version>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
         <netbeans.hint.jdkPlatform>JDK_1.6</netbeans.hint.jdkPlatform>
@@ -82,6 +82,12 @@
             <artifactId>stapler</artifactId>
             <version>${org.kohsuke.stapler.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci</groupId>
