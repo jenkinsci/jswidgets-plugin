@@ -102,7 +102,7 @@ public class JsBuildAction extends JsBaseAction {
         try {
             affectedFiles = entry.getAffectedFiles();
         } catch (UnsupportedOperationException e) {
-            LOG.warn("Got {}, falling back to getAffectedPaths", e);
+            LOG.info("Falling back to getAffectedPaths: " + e);
             return entry.getAffectedPaths();
         }
         final ArrayList<String> entries = new ArrayList<String>();
