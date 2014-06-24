@@ -6,6 +6,9 @@ import hudson.util.RunList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.jvnet.hudson.test.Bug;
+
+import java.util.Arrays;
+
 import static org.mockito.Mockito.*;
 
 /**
@@ -69,10 +72,9 @@ public class JsJobActionTest {
     }
 
     void setupRunListWithAJsBuildAction() {
-        final RunList runList = new RunList();
         AbstractBuild mockBuild = mock(AbstractBuild.class);
         mockBuild.addAction(new JsBuildAction(mockBuild));
-        runList.add(mockBuild);
+        final RunList runList = RunList.fromRuns(Arrays.asList(mockBuild));
         when(mockProject.getBuilds()).thenReturn(runList);
     }
 
