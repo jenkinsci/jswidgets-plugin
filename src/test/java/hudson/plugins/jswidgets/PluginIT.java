@@ -112,7 +112,7 @@ public class PluginIT {
     @LocalData
     public void testBuildHistoryWhereCountIsNull() throws IOException, SAXException {
         final String htmlNeedle = "<div align=\"center\">";
-        final String relative = "/" + JsConsts.URLNAME + "/runs";
+        final String relative = JsConsts.URLNAME + "/runs";
         checkHtmlOutput(htmlNeedle, relative);
         checkJavaScriptOutput(htmlNeedle, relative);
         checkRowCount(webClient.goTo(relative + "?html=true"), TOTAL_NUMBER_OF_RUNS);
@@ -122,26 +122,26 @@ public class PluginIT {
     @Test
     @LocalData
     public void testBuildHistoryWhereCountIsGiven() throws IOException, SAXException {
-        checkRowCount(webClient.goTo("/" + JsConsts.URLNAME + "/runs" + "?html=true&count=2"), 2);
+        checkRowCount(webClient.goTo(JsConsts.URLNAME + "/runs" + "?html=true&count=2"), 2);
     }
 
     @Test
     @LocalData
     public void testBuildHistoryWhereCountGreaterThanSizeOfRunlist() throws IOException, SAXException {
-        checkRowCount(webClient.goTo("/" + JsConsts.URLNAME + "/runs" + "?html=true&count=100"), TOTAL_NUMBER_OF_RUNS);
+        checkRowCount(webClient.goTo(JsConsts.URLNAME + "/runs" + "?html=true&count=100"), TOTAL_NUMBER_OF_RUNS);
     }
 
     @Test
     @LocalData
     public void testJsJobIndexAction() throws IOException, SAXException {
         webClient.setJavaScriptEnabled(false); // TODO webClient chokes on the jshealth javascript right now
-        checkSubJelly("/job/foo", "health");
+        checkSubJelly("job/foo", "health");
     }
 
     @Test
     @LocalData
     public void testJsBuildActionWithChanges() throws IOException, SAXException {
-        final String buildPath = "/job/svntest/4";
+        final String buildPath = "job/svntest/4";
         final String changesJelly = "changes";
         final String changeLogNeedle = "Now with more text";
         // Built on removed slave.
@@ -164,7 +164,7 @@ public class PluginIT {
     @Test
     @LocalData
     public void testJsBuildActionWithOutChanges() throws IOException, SAXException {
-        final String buildPath = "/job/svntest/2";
+        final String buildPath = "job/svntest/2";
         final String changesJelly = "changes";
         final String changeLogNeedle = "No changes in this build";
         final String nodeName = "master Jenkins node";
