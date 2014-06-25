@@ -254,7 +254,7 @@ public class PluginIT {
         final HtmlPage jobPage = webClient.goTo(objectPath);
         checkXpath(jobPage, "//img[contains(@src,\"" + JsConsts.ICONFILENAME + "\")]");
         checkXpath(jobPage, "//a[contains(@href, \"" + objectPath + "/" + JsConsts.URLNAME + "\")]");
-        final String href = objectPath + "/" + JsConsts.URLNAME;
+        final String href = j.contextPath + "/" + objectPath + "/" + JsConsts.URLNAME;
         final HtmlPage jsIndexPage = (HtmlPage) jobPage.getAnchorByHref(href).click();
         checkXpath(jsIndexPage, "//script[@type=\"text/javascript\" and contains(@src, \"" + href + "/" + jellyPath
                 + "\")]");
