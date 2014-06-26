@@ -3,9 +3,6 @@ package hudson.plugins.jswidgets;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.util.RunList;
-
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

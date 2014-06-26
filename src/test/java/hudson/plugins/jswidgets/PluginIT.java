@@ -3,7 +3,6 @@
  */
 package hudson.plugins.jswidgets;
 
-import hudson.model.Hudson;
 import hudson.model.Project;
 import hudson.model.User;
 import hudson.scm.ChangeLogSet;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jenkins.model.Jenkins;
 import org.apache.commons.io.FileUtils;
 import org.jvnet.hudson.test.Bug;
 import org.jvnet.hudson.test.recipes.LocalData;
@@ -144,6 +144,7 @@ public class PluginIT {
         final String buildPath = "job/svntest/4";
         final String changesJelly = "changes";
         final String changeLogNeedle = "Now with more text";
+        checkJsWidgetsOnlyOnce(buildPath);
         // Built on removed slave.
         final String nodeName = "UNKNOWN";
         testJsBuildAction(buildPath, changesJelly, changeLogNeedle, nodeName);
@@ -175,7 +176,7 @@ public class PluginIT {
     @LocalData
     public void testJsProjectActionFactory() {
         @SuppressWarnings("unchecked")
-        final List<Project> projects = Hudson.getInstance().getProjects();
+        final List<Project> projects = Jenkins.getInstance().getProjects();
         assertTrue("Have not projects", projects.size() > 0);
         @SuppressWarnings("unchecked")
         final Project firstProject = projects.get(0);
@@ -270,7 +271,7 @@ public class PluginIT {
 
     /**
      * @param htmlNeedle
-     * @param htmlPage
+     * @param relative
      * @throws SAXException
      * @throws IOException
      */
