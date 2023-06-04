@@ -22,9 +22,9 @@ import org.jvnet.hudson.test.Bug;
 import org.jvnet.hudson.test.recipes.LocalData;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.JavaScriptPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.xml.XmlPage;
+import org.htmlunit.JavaScriptPage;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.xml.XmlPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
